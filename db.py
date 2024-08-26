@@ -8,10 +8,10 @@ class DB:
     def __init__(
         self,
         database: str,
-        user: str = 'postgres',
-        host: str = 'localhost',
-        port='5432',
-        password=''
+        user: str = "postgres",
+        host: str = "localhost",
+        port: str = "5432",
+        password: str = "",
     ) -> None:
         """Init db connection."""
         self.user = user
@@ -26,12 +26,12 @@ class DB:
         """Returns a connection pool. Inits the pool if it hasn't been initialized yet."""
         if not self._connection_pool:
             connection_pool = await asyncpg.create_pool(
-                    user=self.user,
-                    password=self.password,
-                    host=self.host,
-                    port=self.port,
-                    database=self.database,
-                    command_timeout=60,
+                user=self.user,
+                password=self.password,
+                host=self.host,
+                port=self.port,
+                database=self.database,
+                command_timeout=60,
             )
             self._connection_pool = connection_pool
         return self._connection_pool
