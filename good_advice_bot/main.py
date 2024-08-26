@@ -5,9 +5,8 @@ import sys
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from asyncpg import Record
-from dotenv import load_dotenv
-
 from db import DB
+from dotenv import load_dotenv
 
 load_dotenv()
 
