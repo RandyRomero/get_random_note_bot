@@ -5,7 +5,14 @@ import asyncpg
 
 
 class DB:
-    def __init__(self, database: str, user: str = 'postgres', host: str = 'localhost', port='5432', password='') -> None:
+    def __init__(
+        self,
+        database: str,
+        user: str = 'postgres',
+        host: str = 'localhost',
+        port='5432',
+        password=''
+    ) -> None:
         """Init db connection."""
         self.user = user
         self.host = host

@@ -12,15 +12,25 @@ import db
 
 load_dotenv()
 
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-if not BOT_TOKEN:
-    raise ValueError("Bot token is not set.")
+BOT_TOKEN = os.environ['BOT_TOKEN']
+
+DB_USER = os.environ['DB_USER']
+DB_HOST = os.environ['DB_HOST']
+DB_PORT = os.environ['DB_PORT']
+DB_USER_PASSWORD = os.environ['DB_USER_PASSWORD']
+DB_NAME = os.environ['DB_NAME']
 
 
 bot = Bot(token=BOT_TOKEN)
 dispatcher = Dispatcher()
 
-db = db.DB(user='postgres', host='localhost', port=5432, password='postgres', database='social_skills')
+db = db.DB(
+    user=DB_USER,
+    host=DB_HOST,
+    port=DB_PORT,
+    password=DB_USER_PASSWORD,
+    database=DB_NAME,
+)
 
 async def get_random_row() -> Record:
     """Get a random row from a note table.."""
