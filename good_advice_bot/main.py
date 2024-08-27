@@ -1,4 +1,5 @@
 import asyncio
+import logging
 import os
 import sys
 
@@ -7,6 +8,14 @@ from aiogram.types import Message
 from asyncpg import Record
 from db import DB
 from dotenv import load_dotenv
+
+logging.basicConfig(
+    format="%(asctime)s:%(levelname)s:%(name)s:%(lineno)s:%(message)s",
+    level="DEBUG",
+)
+logging.getLogger("asyncio").setLevel(logging.WARNING)
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -32,7 +41,7 @@ db = DB(
 
 
 async def get_random_row() -> Record:
-    """Get a random row from a note table.."""
+    """Get a random row from a note table."""
     async with db.get_connection() as conn:
         result = await conn.fetchrow(
             """
@@ -74,17 +83,22 @@ async def get_a_random_note() -> str:
 @dispatcher.message()
 async def reply_message(message: Message) -> None:
     """Accepts the messages and responds accordingly."""
+    logger.info("Got a new message from chat id %d", message.chat.id)
+
     if message.text and message.text.lower() == "x":
+        logger.info("Got a command to shut down. Bye!")
         await message.answer("bye!")
         await shutdown_bot()
         sys.exit(0)
 
     reply = await get_a_random_note()
     await message.answer(text=reply)
+    logger.info("Replied to the message from %d", message.chat.id)
 
 
 async def main() -> None:
     """Makes the bot listen to new Telegram messages."""
+    logger.info("Bot is waking up...")
     await dispatcher.start_polling(bot)
 
 
