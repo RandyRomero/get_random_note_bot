@@ -2,9 +2,10 @@ import asyncio
 import logging
 import os
 import sys
+from enum import StrEnum
 
-from aiogram import Bot, Dispatcher
-from aiogram.types import Message
+from aiogram import Bot, Dispatcher, F
+from aiogram.types import KeyboardButton, Message, ReplyKeyboardMarkup
 from asyncpg import Record
 from db import DB
 from dotenv import load_dotenv
@@ -38,6 +39,14 @@ db = DB(
     password=DB_USER_PASSWORD,
     database=DB_NAME,
 )
+
+
+class ButtonText(StrEnum):
+    GET_A_RANDOM_NOTE = "Get a random note"
+
+
+GET_A_RANDOM_NOTE_BUTTON = KeyboardButton(text="Get a random note")
+DEFAULT_KEYBOARD = ReplyKeyboardMarkup(keyboard=[[GET_A_RANDOM_NOTE_BUTTON]])
 
 
 async def get_random_row() -> Record:
@@ -80,19 +89,35 @@ async def get_a_random_note() -> str:
     return reply
 
 
+@dispatcher.message(F.text == ButtonText.GET_A_RANDOM_NOTE)
+async def reply_get_a_random_note(message: Message) -> None:
+    logger.info("Got a new message from chat id %d", message.chat.id)
+    reply = await get_a_random_note()
+
+    await message.answer(
+        text=reply,
+        reply_markup=DEFAULT_KEYBOARD,
+    )
+    logger.info("Replied to the message from %d", message.chat.id)
+
+
+@dispatcher.message(F.text == "x")
+async def turn_off_the_bot(message: Message) -> None:
+    logger.info("Got a command to shut down from %d. Bye!", message.chat.id)
+    await message.answer("bye!")
+    await shutdown_bot()
+    sys.exit(0)
+
+
 @dispatcher.message()
 async def reply_message(message: Message) -> None:
     """Accepts the messages and responds accordingly."""
     logger.info("Got a new message from chat id %d", message.chat.id)
 
-    if message.text and message.text.lower() == "x":
-        logger.info("Got a command to shut down. Bye!")
-        await message.answer("bye!")
-        await shutdown_bot()
-        sys.exit(0)
-
-    reply = await get_a_random_note()
-    await message.answer(text=reply)
+    await message.answer(
+        text="Push the button:",
+        reply_markup=DEFAULT_KEYBOARD,
+    )
     logger.info("Replied to the message from %d", message.chat.id)
 
 
