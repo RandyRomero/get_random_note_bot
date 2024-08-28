@@ -1,10 +1,19 @@
+import os
 import typing as tp
 from contextlib import asynccontextmanager
 
 import asyncpg
 
+DB_USER = os.environ["DB_USER"]
+DB_HOST = os.environ["DB_HOST"]
+DB_PORT = os.environ["DB_PORT"]
+DB_USER_PASSWORD = os.environ["DB_USER_PASSWORD"]
+DB_NAME = os.environ["DB_NAME"]
+
 
 class DB:
+    """A class responsible for database connections."""
+
     def __init__(
         self,
         database: str,
@@ -48,3 +57,12 @@ class DB:
         """Closes the connection pool."""
         if self._connection_pool:
             await self._connection_pool.close()
+
+
+db = DB(
+    user=DB_USER,
+    host=DB_HOST,
+    port=DB_PORT,
+    password=DB_USER_PASSWORD,
+    database=DB_NAME,
+)

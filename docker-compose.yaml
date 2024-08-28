@@ -12,7 +12,7 @@ services:
         database:
           condition: service_healthy
 #      command: sh -c ". .venv/bin/activate && sleep 600"
-      command: sh -c ". .venv/bin/activate && python good_advice_bot/main.py"
+      command: sh -c ". .venv/bin/activate && python -m good_advice_bot"
 
   database:
     image: postgres:16.4-bookworm
