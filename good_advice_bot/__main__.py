@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 
-from good_advice_bot.bot.main import init_bot
+from good_advice_bot.bot.main import get_new_bot
 
 logging.basicConfig(
     format="%(asctime)s:%(levelname)s:%(name)s:%(lineno)s:%(message)s",
@@ -16,7 +16,7 @@ BOT_TOKEN = os.environ["BOT_TOKEN"]
 
 
 async def main() -> None:
-    bot = init_bot(BOT_TOKEN)
+    bot = get_new_bot(BOT_TOKEN)
     await bot.start_polling()
 
 
