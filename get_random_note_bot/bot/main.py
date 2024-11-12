@@ -2,14 +2,14 @@ import logging
 
 from aiogram import Bot, Dispatcher, F
 
-from good_advice_bot.bot.handlers import Handlers
-from good_advice_bot.bot.keyboads import ButtonsText
-from good_advice_bot.bot.repository import Entities
+from get_random_note_bot.bot.handlers import Handlers
+from get_random_note_bot.bot.keyboads import ButtonsText
+from get_random_note_bot.bot.repository import Entities
 
 logger = logging.getLogger(__name__)
 
 
-class GoodAdviceTelegramBot:
+class TelegramBot:
     """
     Bot entity
 
@@ -35,13 +35,13 @@ class GoodAdviceTelegramBot:
         self.dispatcher.message()(self.handlers.reply_message_handler)
 
 
-def get_new_bot(bot_token: str) -> GoodAdviceTelegramBot:
-    """Creates a new instance of a GoodAdviceTelegramBot."""
+def get_new_bot(bot_token: str) -> TelegramBot:
+    """Creates a new instance of a TelegramBot."""
     bot = Bot(token=bot_token)
     dispatcher = Dispatcher()
     entities = Entities()
     handlers = Handlers(entities)
 
-    good_bot = GoodAdviceTelegramBot(bot, dispatcher, handlers)
-    good_bot.register_handlers()
-    return good_bot
+    bot = TelegramBot(bot, dispatcher, handlers)
+    bot.register_handlers()
+    return bot

@@ -1,7 +1,7 @@
 [tool.isort]
 line_length = 100
 multi_line_output = "3"
-known_first_party = "good_advice_bot"
+known_first_party = "get_random_note_bot"
 include_trailing_comma = "true"
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 default_section = "THIRDPARTY"

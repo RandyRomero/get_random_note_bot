@@ -2,7 +2,7 @@ import asyncio
 import logging
 import os
 
-from good_advice_bot.bot.main import get_new_bot
+from get_random_note_bot.bot.main import get_new_bot
 
 logging.basicConfig(
     format="%(asctime)s:%(levelname)s:%(name)s:%(lineno)s:%(message)s",

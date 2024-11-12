@@ -1,6 +1,6 @@
 from asyncpg.protocol.protocol import Record
 
-from good_advice_bot.backend.db import db, DB
+from get_random_note_bot.backend.db import db, DB
 
 
 class NoteEntity:

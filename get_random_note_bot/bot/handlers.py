@@ -2,9 +2,9 @@ import logging
 
 from aiogram.types import Message
 
-from good_advice_bot.bot.keyboads import DEFAULT_KEYBOARD
-from good_advice_bot.bot.logic import get_a_random_note
-from good_advice_bot.bot.repository import Entities
+from get_random_note_bot.bot.keyboads import DEFAULT_KEYBOARD
+from get_random_note_bot.bot.logic import get_a_random_note
+from get_random_note_bot.bot.repository import Entities
 
 logger = logging.getLogger(__name__)
 
