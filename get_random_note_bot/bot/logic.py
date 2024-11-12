@@ -1,4 +1,4 @@
-from good_advice_bot.bot.repository import Entities
+from get_random_note_bot.bot.repository import Entities
 
 
 async def get_a_random_note(entities: Entities) -> str:

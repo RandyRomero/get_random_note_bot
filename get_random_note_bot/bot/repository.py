@@ -2,7 +2,7 @@ import typing as tp
 
 from asyncpg.protocol.protocol import Record
 
-from good_advice_bot.backend.entities import note_entity
+from get_random_note_bot.backend.entities import note_entity
 
 
 class NoteSourceType(tp.Protocol):

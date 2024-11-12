@@ -11,7 +11,7 @@ services:
       depends_on:
         database:
           condition: service_healthy
-      command: sh -c ". .venv/bin/activate && python -m good_advice_bot"
+      command: sh -c ". .venv/bin/activate && python -m get_random_note_bot"
 
   database:
     image: postgres:16.4-bookworm
