@@ -13,10 +13,12 @@ logging.getLogger("asyncio").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 BOT_TOKEN = os.environ["BOT_TOKEN"]
+ADMIN_TELEGRAM_ID = os.environ["ADMIN_TELEGRAM_ID"]
 
 
 async def main() -> None:
     bot = get_new_bot(BOT_TOKEN)
+    await bot.bot.send_message(chat_id=ADMIN_TELEGRAM_ID, text="Starting get_random_note_bot...")
     await bot.start_polling()
 
 
