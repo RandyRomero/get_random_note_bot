@@ -3,6 +3,7 @@ services:
       build: ./
       environment:
         - BOT_TOKEN=${BOT_TOKEN}
+        - ADMIN_TELEGRAM_ID=${ADMIN_TELEGRAM_ID}
         - DB_USER=${DB_USER}
         - DB_HOST=database
         - DB_PORT=5432
@@ -12,6 +13,7 @@ services:
         database:
           condition: service_healthy
       command: sh -c ". .venv/bin/activate && python -m get_random_note_bot"
+      restart: always
 
   database:
     image: postgres:16.4-bookworm
