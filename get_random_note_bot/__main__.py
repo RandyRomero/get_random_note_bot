@@ -1,7 +1,7 @@
 import asyncio
 import logging
-import os
 
+from get_random_note_bot import settings
 from get_random_note_bot.bot.main import get_new_bot
 
 logging.basicConfig(
@@ -9,16 +9,18 @@ logging.basicConfig(
     level="DEBUG",
 )
 logging.getLogger("asyncio").setLevel(logging.WARNING)
+logging.getLogger("aiogram").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
 
-BOT_TOKEN = os.environ["BOT_TOKEN"]
-ADMIN_TELEGRAM_ID = os.environ["ADMIN_TELEGRAM_ID"]
-
 
 async def main() -> None:
-    bot = get_new_bot(BOT_TOKEN)
-    await bot.bot.send_message(chat_id=ADMIN_TELEGRAM_ID, text="Starting get_random_note_bot...")
+    bot = get_new_bot(settings.BOT_TOKEN)
+    # todo: create a send message proxy method in TelegramBot class
+    await bot.bot.send_message(
+        chat_id=settings.ADMIN_TELEGRAM_ID,
+        text="Starting get_random_note_bot...",
+    )
     await bot.start_polling()
 
 
