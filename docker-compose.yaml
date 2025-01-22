@@ -13,7 +13,7 @@ services:
         database:
           condition: service_healthy
       command: sh -c ". .venv/bin/activate && python -m get_random_note_bot"
-      restart: always
+      restart: on-failure
 
   database:
     image: postgres:16.4-bookworm
